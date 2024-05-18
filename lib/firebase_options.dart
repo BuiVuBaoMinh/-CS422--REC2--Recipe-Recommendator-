@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,15 +25,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -48,6 +39,16 @@ class DefaultFirebaseOptions {
         );
     }
   }
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyAfy5hF-nlfx5mH_RPlsZXsmdYR6W-_4C8',
+    appId: '1:480994439158:web:d779c14b4e88bf4be761d7',
+    messagingSenderId: '480994439158',
+    projectId: 'recipe-41603',
+    authDomain: 'recipe-41603.firebaseapp.com',
+    storageBucket: 'recipe-41603.appspot.com',
+    measurementId: 'G-7GC41BMD2V',
+  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAE6J8SZrwnkMDwgnLw3gdQyo9Od1YKd5Q',
@@ -64,5 +65,24 @@ class DefaultFirebaseOptions {
     projectId: 'recipe-41603',
     storageBucket: 'recipe-41603.appspot.com',
     iosBundleId: 'com.example.recRecApp',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAL-UJv2GumUAKi0peCw2CUEE5KYY-X4PY',
+    appId: '1:480994439158:ios:08c3994a1b68802be761d7',
+    messagingSenderId: '480994439158',
+    projectId: 'recipe-41603',
+    storageBucket: 'recipe-41603.appspot.com',
+    iosBundleId: 'com.example.recRecApp',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyAfy5hF-nlfx5mH_RPlsZXsmdYR6W-_4C8',
+    appId: '1:480994439158:web:f575277eb19a38f3e761d7',
+    messagingSenderId: '480994439158',
+    projectId: 'recipe-41603',
+    authDomain: 'recipe-41603.firebaseapp.com',
+    storageBucket: 'recipe-41603.appspot.com',
+    measurementId: 'G-B3DNN6L2VB',
   );
 }

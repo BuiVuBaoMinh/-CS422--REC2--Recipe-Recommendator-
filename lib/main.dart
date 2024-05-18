@@ -20,7 +20,7 @@ class RecRecApp extends StatelessWidget {
       title: 'Recipe Recommender',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color.fromARGB(255, 170, 228, 255)),
+            seedColor: const Color.fromARGB(255, 4, 24, 33)),
         useMaterial3: true,
       ),
       home: HomePage(),
