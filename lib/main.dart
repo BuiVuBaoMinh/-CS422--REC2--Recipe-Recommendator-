@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:rec_rec_app/firebase_options.dart';
 
 import 'homepage/homepage.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const RecRecApp());
 }
 
@@ -14,7 +18,7 @@ class RecRecApp extends StatelessWidget {
     return MaterialApp(
       title: 'Recipe Recommendator',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 170, 228, 255)),
+        colorScheme: ColorScheme.fromSeed(seedColor:  Color.fromARGB(255, 4, 24, 33)),
         useMaterial3: true,
       ),
       home: HomePage(),

@@ -5,14 +5,16 @@ class ParallaxRecipe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          for (final recipe in recipes)
-            RecipeListItem(
-              imageUrl: recipe.imageUrl, 
-              name: recipe.name),
-        ],
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            for (final recipe in recipes)
+              RecipeListItem(
+                imageUrl: recipe.imageUrl, 
+                name: recipe.name),
+          ],
+        ),
       ),
     );
   }
