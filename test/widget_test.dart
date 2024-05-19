@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // ignore: depend_on_referenced_packages
-import 'package:final_project/main.dart';
+// import 'package:final_project/main.dart';
 import 'package:rec_rec_app/main.dart';
 
 void main() {

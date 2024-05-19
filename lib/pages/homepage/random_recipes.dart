@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:rec_rec_app/camera_page/camera_page.dart';
+// import 'package:rec_rec_app/camera_page/camera_page.dart';
 
 class ParallaxRecipe extends StatelessWidget {
   const ParallaxRecipe({super.key});
@@ -12,9 +12,7 @@ class ParallaxRecipe extends StatelessWidget {
         child: Column(
           children: [
             for (final recipe in recipes)
-              RecipeListItem(
-                imageUrl: recipe.imageUrl, 
-                name: recipe.name),
+              RecipeListItem(imageUrl: recipe.imageUrl, name: recipe.name),
           ],
         ),
       ),
@@ -133,13 +131,14 @@ class ParallaxFlowDelegate extends FlowDelegate {
     final scrollableBox = scrollable.context.findRenderObject() as RenderBox;
     final listItemBox = listItemContext.findRenderObject() as RenderBox;
     final listItemOffset = listItemBox.localToGlobal(
-      listItemBox.size.centerLeft(Offset.zero),
-      ancestor: scrollableBox);
+        listItemBox.size.centerLeft(Offset.zero),
+        ancestor: scrollableBox);
 
     // Determine the percent position of this list item within the
     // scrollable area.
     final viewportDimension = scrollable.position.viewportDimension;
-    final scrollFraction = (listItemOffset.dy / viewportDimension).clamp(0.0, 1.0);
+    final scrollFraction =
+        (listItemOffset.dy / viewportDimension).clamp(0.0, 1.0);
 
     // Calculate the vertical alignment of the background
     // based on the scroll percent.
@@ -151,7 +150,8 @@ class ParallaxFlowDelegate extends FlowDelegate {
         (backgroundImageKey.currentContext!.findRenderObject() as RenderBox)
             .size;
     final listItemSize = context.size;
-    final childRect = verticalAlignment.inscribe(backgroundSize, Offset.zero & listItemSize);
+    final childRect =
+        verticalAlignment.inscribe(backgroundSize, Offset.zero & listItemSize);
 
     // Paint the background.
     context.paintChild(
@@ -162,10 +162,10 @@ class ParallaxFlowDelegate extends FlowDelegate {
   }
 
   @override
-  bool shouldRepaint(covariant ParallaxFlowDelegate  oldDelegate) {
+  bool shouldRepaint(covariant ParallaxFlowDelegate oldDelegate) {
     return scrollable != oldDelegate.scrollable ||
-      listItemContext != oldDelegate.listItemContext ||
-      backgroundImageKey != oldDelegate.backgroundImageKey;
+        listItemContext != oldDelegate.listItemContext ||
+        backgroundImageKey != oldDelegate.backgroundImageKey;
   }
 }
 

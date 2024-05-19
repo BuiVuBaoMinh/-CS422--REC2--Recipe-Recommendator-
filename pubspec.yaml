@@ -35,3 +35,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/scan_btn_bg.jpg
+    - assets/images/apple_login.png
+    - assets/images/google_login.png
