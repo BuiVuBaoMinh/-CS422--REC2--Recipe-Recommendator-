@@ -2,12 +2,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rec_rec_app/pages/camera_page/camera_page.dart';
 import 'package:rec_rec_app/pages/user_profile.dart';
+import 'package:rec_rec_app/services/firestore.dart';
 // import 'package:flutter/services.dart' show rootBundle;
 import 'random_recipes.dart';
 import 'package:rec_rec_app/main.dart' show firstCamera;
 
 class HomePage extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser!;
+  final FirestoreService firestoreService = FirestoreService();
 
   HomePage({super.key});
 
@@ -69,7 +71,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            HomePageScanButton(),
+            const HomePageScanButton(),
           ],
         ),
       ),
