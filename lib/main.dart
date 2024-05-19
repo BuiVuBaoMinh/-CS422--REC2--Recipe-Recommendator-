@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rec_rec_app/firebase_options.dart';
 
 import 'package:camera/camera.dart';
-import 'package:rec_rec_app/pages/login_page.dart';
-
-import 'pages/homepage/homepage.dart';
+import 'package:rec_rec_app/pages/auth_page.dart';
 
 late CameraDescription firstCamera;
 
@@ -36,7 +34,7 @@ class RecRecApp extends StatelessWidget {
             seedColor: const Color.fromARGB(255, 4, 24, 33)),
         useMaterial3: true,
       ),
-      home: LoginPage(),
+      home: const AuthPage(),
     );
   }
 }

@@ -1,11 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:rec_rec_app/pages/camera_page/camera_page.dart';
+import 'package:rec_rec_app/pages/user_profile.dart';
 // import 'package:flutter/services.dart' show rootBundle;
 import 'random_recipes.dart';
 import 'package:rec_rec_app/main.dart' show firstCamera;
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final user = FirebaseAuth.instance.currentUser!;
+
+  HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,7 @@ class HomePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        'Welcome, User',
+                        'Welcome, ${user.email!}',
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
                             fontSize: 20.0),
@@ -47,6 +51,11 @@ class HomePage extends StatelessWidget {
                           IconButton(
                             onPressed: () {
                               print('user');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const UserProfile()),
+                              );
                             },
                             icon: const Icon(
                               IconData(0xe491, fontFamily: 'MaterialIcons'),
