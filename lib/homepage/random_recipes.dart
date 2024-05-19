@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:rec_rec_app/camera_page/camera_page.dart';
+
 class ParallaxRecipe extends StatelessWidget {
   const ParallaxRecipe({super.key});
 
