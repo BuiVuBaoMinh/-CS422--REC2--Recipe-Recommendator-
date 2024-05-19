@@ -5,22 +5,20 @@ import "package:rec_rec_app/pages/components/my_textfield.dart";
 import "package:rec_rec_app/pages/components/square_title.dart";
 import "package:rec_rec_app/services/auth_service.dart";
 
-class RegisterPage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   final Function()? onTap;
 
-  const RegisterPage({super.key, required this.onTap});
+  const LoginPage({super.key, required this.onTap});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _LoginPageState extends State<LoginPage> {
   // text controller
   final emailController = TextEditingController();
 
   final passwordController = TextEditingController();
-
-  final confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,25 +30,25 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const SizedBox(height: 25),
+                const SizedBox(height: 50),
                 // logo
                 const Icon(
                   Icons.lock,
-                  size: 50,
+                  size: 80,
                 ),
 
                 const SizedBox(height: 50),
 
-                // let's create an account for you
+                // welcome back
                 Text(
-                  "Let's create an account for you!",
+                  "Welcome back, you've been missed!",
                   style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 16,
                   ),
                 ),
 
-                const SizedBox(height: 25),
+                const SizedBox(height: 50),
 
                 // username textfield
                 MyTextField(
@@ -70,19 +68,26 @@ class _RegisterPageState extends State<RegisterPage> {
 
                 const SizedBox(height: 10),
 
-                // username textfield
-                MyTextField(
-                  controller: confirmPasswordController,
-                  hintText: "Confirm Password",
-                  obscureText: true,
+                // forgot password?
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Forgot password",
+                        style: TextStyle(color: Colors.grey[600]),
+                      ),
+                    ],
+                  ),
                 ),
 
                 const SizedBox(height: 25),
 
-                // sign up button
+                // sign in button
                 MyButton(
-                  onTap: signUserUp,
-                  text: "Sign up",
+                  onTap: signUserIn,
+                  text: "Sign in",
                 ),
 
                 const SizedBox(height: 50),
@@ -150,7 +155,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Already have an account?",
+                      "Not a member?",
                       style: TextStyle(
                         color: Colors.grey[700],
                       ),
@@ -161,7 +166,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     GestureDetector(
                       onTap: widget.onTap,
                       child: const Text(
-                        "Login now",
+                        "Register now",
                         style: TextStyle(
                           color: Colors.blue,
                           fontWeight: FontWeight.bold,
@@ -178,7 +183,7 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  void signUserUp() async {
+  void signUserIn() async {
     // show loading circle
     showDialog(
       context: context,
@@ -189,20 +194,18 @@ class _RegisterPageState extends State<RegisterPage> {
       },
     );
 
-    // try creating user
+    // try sign in
     try {
-      if (passwordController.text == confirmPasswordController.text) {
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailController.text,
-          password: passwordController.text,
-        );
-      } else {
-        showErrorMessage("Password and Confirm password don't match!");
-      }
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
 
       // pop the loading circle
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
 
       showErrorMessage(e.code);

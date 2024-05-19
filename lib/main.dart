@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rec_rec_app/firebase_options.dart';
 
 import 'package:camera/camera.dart';
-import 'package:rec_rec_app/pages/auth_page.dart';
+import 'package:rec_rec_app/pages/login_pages/auth_page.dart';
 
 late CameraDescription firstCamera;
 

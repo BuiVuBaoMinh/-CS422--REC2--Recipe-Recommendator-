@@ -6,3 +6,11 @@ class Recipe {
 
   Recipe(this.title, this.ingredients, this.directions, this.ner);
 }
+
+class UserRecipe extends Recipe {
+  String userEmail;
+  String imageUrl;
+
+  UserRecipe(super.title, super.ingredients, super.directions, super.ner,
+      this.userEmail, this.imageUrl);
+}
