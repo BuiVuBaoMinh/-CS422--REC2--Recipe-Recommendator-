@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
                         'Welcome, ${user.email!}',
                         style: TextStyle(
                             color: Theme.of(context).colorScheme.onSurface,
-                            fontSize: 20.0),
+                            fontSize: 16.0),
                       ),
                       Row(
                         children: [

@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:rec_rec_app/pages/components/my_button.dart";
 import "package:rec_rec_app/pages/components/my_textfield.dart";
 import "package:rec_rec_app/pages/components/square_title.dart";
+import "package:rec_rec_app/services/auth_service.dart";
 
 class LoginPage extends StatefulWidget {
   final Function()? onTap;
@@ -124,18 +125,24 @@ class _LoginPageState extends State<LoginPage> {
                 ),
 
                 // google + apple sign in button
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // google button
-                    SquareTitle(imagePath: "assets/images/google_login.png"),
+                    SquareTitle(
+                      imagePath: "assets/images/google_login.png",
+                      onTap: () => AuthService().signInWithGoogle(),
+                    ),
 
-                    SizedBox(
+                    const SizedBox(
                       width: 25,
                     ),
 
                     // apple button
-                    SquareTitle(imagePath: "assets/images/apple_login.png"),
+                    SquareTitle(
+                      imagePath: "assets/images/apple_login.png",
+                      onTap: () {},
+                    ),
                   ],
                 ),
 
