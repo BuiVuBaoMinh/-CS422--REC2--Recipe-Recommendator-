@@ -95,11 +95,13 @@ class _EditRecipePageState extends State<EditRecipePage> {
   }
 
   Future<void> deleteUserRecipe() async {
-    print("check");
+    // print("check");
     firestoreService.deleteUserRecipe(widget.docID!);
-    final desertRef =
-        firestoreService.storageRef.child("recipeImage/${imageName}");
-    await desertRef.delete();
+    if (imageName != null) {
+      final desertRef =
+          firestoreService.storageRef.child("recipeImage/${imageName}");
+      await desertRef.delete();
+    }
     Navigator.pop(context);
   }
 
@@ -280,10 +282,12 @@ class _EditRecipePageState extends State<EditRecipePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          title,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 24),
+                        Expanded(
+                          child: Text(
+                            title,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 24),
+                          ),
                         ),
                         IconButton(
                           icon: const Icon(Icons.settings),

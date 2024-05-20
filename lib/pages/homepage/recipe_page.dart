@@ -23,7 +23,10 @@ class _RecipePageState extends State<RecipePage> {
           child: Column(
             children: [
               // recipe image
-              Image.network(widget.userRecipe.imageUrl),
+              widget.userRecipe.imageUrl != ""
+                  ? Image.network(widget.userRecipe.imageUrl)
+                  : Image.network(
+                      "https://th.bing.com/th/id/R.e47325df69964a48a7baad4bf45664e5?rik=rHZDtvLbqg6KZg&pid=ImgRaw&r=0"),
 
               Padding(
                 padding: const EdgeInsets.all(25.0),

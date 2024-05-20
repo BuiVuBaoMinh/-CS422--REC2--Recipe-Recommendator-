@@ -42,11 +42,17 @@ class MyRecipeTile extends StatelessWidget {
                 // Recipe image
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    userRecipe.imageUrl,
-                    height: 120,
-                    width: 120,
-                  ),
+                  child: userRecipe.imageUrl != ""
+                      ? Image.network(
+                          userRecipe.imageUrl,
+                          height: 120,
+                          width: 120,
+                        )
+                      : Image.network(
+                          "https://th.bing.com/th/id/R.e47325df69964a48a7baad4bf45664e5?rik=rHZDtvLbqg6KZg&pid=ImgRaw&r=0",
+                          height: 120,
+                          width: 120,
+                        ),
                 )
               ],
             ),
