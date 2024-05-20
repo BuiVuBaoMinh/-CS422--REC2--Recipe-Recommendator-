@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
@@ -22,12 +21,10 @@ class DisplayPictureScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print("pressed submit");
-          print("file ${imagePath}");
+          print("file $imagePath");
           submitPrompt(imagePath);
         },
-        child: Icon(
-           IconData(0xf05d, fontFamily: 'MaterialIcons')
-        ),
+        child: const Icon(IconData(0xf05d, fontFamily: 'MaterialIcons')),
       ),
     );
   }
@@ -37,7 +34,7 @@ void submitPrompt(String imagePath) async {
   final ingredientsImage = await File(imagePath).readAsBytes();
   final imagePart = DataPart('image/jpeg', ingredientsImage);
 
-  print("file submitted ${imagePath}");
+  print("file submitted $imagePath");
 
   final prompt = TextPart("""
     Recommend a recipe based on the provided image.
@@ -55,10 +52,10 @@ void submitPrompt(String imagePath) async {
     Return in a Map<String, values> JSON format.
     """);
 
-    print("getting recipe from model");
-    final response = await model.generateContent([
-      Content.multi([prompt, imagePart])
-    ]);
+  print("getting recipe from model");
+  final response = await model.generateContent([
+    Content.multi([prompt, imagePart])
+  ]);
 
-    print(response.text);
+  print(response.text);
 }

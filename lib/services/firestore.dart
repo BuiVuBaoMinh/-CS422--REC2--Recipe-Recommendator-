@@ -88,8 +88,22 @@ class FirestoreService {
   }
 
   // Update
+  Future<void> updateUserRecipe(String docID, UserRecipe newUserRecipe) {
+    return userRecipes.doc(docID).update({
+      "title": newUserRecipe.title,
+      "ingredients": newUserRecipe.ingredients,
+      "directions": newUserRecipe.directions,
+      "NER": newUserRecipe.ner,
+      "email": newUserRecipe.userEmail,
+      "imageName": newUserRecipe.imageName,
+      "imageUrl": newUserRecipe.imageUrl,
+    });
+  }
 
   // Delete
+  Future<void> deleteUserRecipe(String docID) {
+    return userRecipes.doc(docID).delete();
+  }
 }
 
 List<String> convertFieldToList(dynamic field) {

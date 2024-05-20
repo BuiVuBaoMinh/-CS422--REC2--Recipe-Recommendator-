@@ -23,6 +23,7 @@ dependencies:
   firebase_storage: ^11.7.5
   file_picker: ^8.0.3
   google_generative_ai: ^0.4.0
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:
