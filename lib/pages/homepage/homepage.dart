@@ -25,7 +25,7 @@ class HomePage extends StatelessWidget {
         drawer: const MyDrawer(),
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrollled) => [
-            MySilverAppBar(
+            const MySilverAppBar(
                 title: Text(
                   "Your recipes",
                   style: TextStyle(fontSize: 20),
@@ -33,8 +33,17 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    ScanButton(assetPath: 'assets/scan_btn_bg.jpg'),
-                    PickImageButton(assetPath: 'assets/pick_image_btn_bg.jpg'),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 25.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ScanButton(assetPath: 'assets/scan_btn_bg.jpg'),
+                          PickImageButton(
+                              assetPath: 'assets/pick_image_btn_bg.jpg'),
+                        ],
+                      ),
+                    ),
                   ],
                 )),
           ],

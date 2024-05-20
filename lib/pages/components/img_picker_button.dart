@@ -6,7 +6,7 @@ import 'package:rec_rec_app/pages/display_picture_screen/display_picture_screen.
 
 
 class PickImageButton extends ScanButton {
-  PickImageButton({required super.assetPath});
+  const PickImageButton({super.key, required super.assetPath});
 
   @override
   Widget build(BuildContext context) {
@@ -15,33 +15,37 @@ class PickImageButton extends ScanButton {
         final image = await _pickImageFromGallery();
         if (image != null) {
           await Navigator.push(
+            // ignore: use_build_context_synchronously
             context,
             MaterialPageRoute(
                 builder: (context) => DisplayPictureScreen(
                       imagePath: image.path,
-                    )
-            ),
+                    )),
           );
         }
-        
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: AspectRatio(
-          aspectRatio: 1.5 / 1,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(32),
-            child: Stack(
-              children: [
-                Image.asset(assetPath, fit: BoxFit.cover),
-                Center(
-                    child: Icon(
-                  Icons.add_photo_alternate_outlined,
-                  size: 100,
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                )),
-              ],
-            ),
+      child: Container(
+        width: 150,
+        height: 100,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.circular(16),
+          color: Colors.grey[200],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Stack(
+            children: [
+              Image.asset(
+                assetPath,
+                fit: BoxFit.cover,
+              ),
+              Center(
+                  child: Icon(
+                Icons.add_photo_alternate_outlined,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+              )),
+            ],
           ),
         ),
       ),
@@ -50,6 +54,7 @@ class PickImageButton extends ScanButton {
 }
 
 Future _pickImageFromGallery() async {
-  final returnedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+  final returnedImage =
+      await ImagePicker().pickImage(source: ImageSource.gallery);
   return returnedImage;
 }

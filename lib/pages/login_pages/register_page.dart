@@ -136,7 +136,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     // apple button
                     SquareTitle(
                       imagePath: "assets/images/apple_login.png",
-                      onTap: () {},
+                      onTap: () => showErrorMessage(
+                          "We are not support apple yet, but soon!"),
                     ),
                   ],
                 ),
