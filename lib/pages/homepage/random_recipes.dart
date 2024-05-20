@@ -11,7 +11,7 @@ class ParallaxRecipe extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            for (final recipe in recipes)
+            for (final recipe in locations)
               RecipeListItem(imageUrl: recipe.imageUrl, name: recipe.name),
           ],
         ),
@@ -181,7 +181,7 @@ class Recipe {
 
 const urlPrefix =
     'https://docs.flutter.dev/cookbook/img-files/effects/parallax';
-const recipes = [
+const locations = [
   Recipe(
     name: 'Mount Rushmore',
     imageUrl: '$urlPrefix/01-mount-rushmore.jpg',
