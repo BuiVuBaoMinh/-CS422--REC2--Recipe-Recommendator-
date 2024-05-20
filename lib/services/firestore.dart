@@ -1,11 +1,25 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../model/recipe_class.dart';
 
 class FirestoreService {
   // get collections
+  // for firestore (data)
   final CollectionReference recipes =
       FirebaseFirestore.instance.collection("recipes");
+  final CollectionReference userRecipes =
+      FirebaseFirestore.instance.collection("userRecipes");
+
+  // for fire cloud storage (image)
+  final storageRef = FirebaseStorage.instance.ref();
+
+  // Query
+  Future<void> getUserRecipes(String userEmail) {
+    return userRecipes.where("email", isEqualTo: userEmail).get();
+  }
 
   // Create
   Future<void> addRecipe(Recipe recipe) {
@@ -14,6 +28,18 @@ class FirestoreService {
       "ingredients": recipe.ingredients,
       "directions": recipe.directions,
       "NER": recipe.ner,
+    });
+  }
+
+  Future<void> addUserRecipe(UserRecipe userRecipe) {
+    return userRecipes.add({
+      "title": userRecipe.title,
+      "ingredients": userRecipe.ingredients,
+      "directions": userRecipe.directions,
+      "NER": userRecipe.ner,
+      "email": userRecipe.userEmail,
+      "imageName": userRecipe.imageName,
+      "imageUrl": userRecipe.imageUrl,
     });
   }
 
@@ -39,10 +65,10 @@ class FirestoreService {
           if (allIngredientsFound) {
             // print('${docSnapshot.id} => NER: $nerFieldList');
             result.add(Recipe(
-              title: docSnapshot.get("title").toString(),
-              ingredients: convertFieldToList(docSnapshot.get("ingredients")),
-              directions: convertFieldToList(docSnapshot.get("directions")),
-              ner: nerFieldList));
+              docSnapshot.get("title").toString(),
+              convertFieldToList(docSnapshot.get("ingredients")),
+              convertFieldToList(docSnapshot.get("directions")),
+              nerFieldList));
           }
         }
       }
@@ -52,6 +78,13 @@ class FirestoreService {
       print(recipe.directions);
     }
     return result;
+  }
+
+  Stream<QuerySnapshot> getUserRecipesStream(String userEmail) {
+    final recipesStream =
+        userRecipes.where("email", isEqualTo: userEmail).snapshots();
+
+    return recipesStream;
   }
 
   // Update

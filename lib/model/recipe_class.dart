@@ -13,3 +13,12 @@ class Recipe {
     required this.ner,
   });
 }
+
+class UserRecipe extends Recipe {
+  String userEmail;
+  String imageName;
+  String imageUrl;
+
+  UserRecipe(super.title, super.ingredients, super.directions, super.ner,
+      this.userEmail, this.imageName, this.imageUrl);
+}
