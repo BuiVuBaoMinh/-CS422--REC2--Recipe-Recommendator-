@@ -4,6 +4,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:rec_rec_app/model/recipe_class.dart';
 import 'package:rec_rec_app/pages/components/my_button.dart';
+import 'package:rec_rec_app/pages/homepage/enum.dart';
 import 'package:rec_rec_app/services/firestore.dart';
 
 class EditRecipePage extends StatefulWidget {
@@ -18,6 +19,7 @@ class EditRecipePage extends StatefulWidget {
 
 class _EditRecipePageState extends State<EditRecipePage> {
   // text controller
+  late String title = widget.userRecipe?.title ?? "Recipe Title";
   final titleController = TextEditingController();
 
   late List<String> ingredients = widget.userRecipe?.ingredients ?? [];
@@ -28,6 +30,8 @@ class _EditRecipePageState extends State<EditRecipePage> {
 
   late List<String> ner = widget.userRecipe?.ner ?? [];
   final nerController = TextEditingController();
+
+  late String imageUrl = widget.userRecipe?.imageUrl ?? "";
 
   PlatformFile? pickedFile;
 
@@ -57,28 +61,80 @@ class _EditRecipePageState extends State<EditRecipePage> {
     UserRecipe newUserRecipe;
   }
 
-  openRecipeConfigureBox(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              title: const Text("Add ingredients"),
-              content: const TextField(
-                decoration: InputDecoration(hintText: "eggs or milk or beef"),
-              ),
-              actions: [
-                // cancel button
-                MaterialButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text("Cancel"),
-                ),
+  openRecipeConfigureBox(
+      {required BuildContext context,
+      required DialogField dialogType,
+      int index = 0}) {
+    String? heading;
+    Function()? onPressed;
+    TextEditingController? controller;
 
-                // save button
-                MaterialButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text("Add"),
-                ),
-              ],
-            ));
+    if (dialogType == DialogField.title) {
+      heading = "Recipe Title";
+      onPressed = () {
+        setState(() {
+          title = titleController.text;
+        });
+      };
+      controller = titleController;
+    } else if (dialogType == DialogField.ingredients) {
+      heading = "Ingredients";
+      onPressed = () {
+        setState(() {
+          ingredients[index] = "${ingredientController.text} ${ner[index]}";
+        });
+      };
+      controller = ingredientController;
+    } else if (dialogType == DialogField.directions) {
+      heading = "Step ${(directions.length + 1)}";
+      onPressed = () {
+        setState(() {
+          directions.add(directionController.text);
+        });
+      };
+      controller = directionController;
+    } else if (dialogType == DialogField.ner) {
+      heading = "Ingredient ${(ner.length + 1)}";
+      onPressed = () {
+        setState(() {
+          ingredients.add(nerController.text);
+          ner.add(nerController.text);
+        });
+      };
+      controller = nerController;
+    } else {
+      heading = "Error occur";
+      onPressed = () {};
+    }
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(heading!),
+        content: TextField(
+          controller: controller,
+          decoration: const InputDecoration(hintText: "eggs or milk or beef"),
+        ),
+        actions: [
+          // cancel button
+          MaterialButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel"),
+          ),
+
+          // save button
+          MaterialButton(
+            onPressed: () {
+              // Pop the dialog
+              Navigator.pop(context);
+
+              // Handle the data
+              onPressed!();
+            },
+            child: const Text("Add"),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -115,15 +171,14 @@ class _EditRecipePageState extends State<EditRecipePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          widget.userRecipe != null
-                              ? widget.userRecipe!.title
-                              : "Recipe title",
+                          title!,
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 24),
                         ),
                         IconButton(
                           icon: const Icon(Icons.settings),
-                          onPressed: () => openRecipeConfigureBox(context),
+                          onPressed: () => openRecipeConfigureBox(
+                              context: context, dialogType: DialogField.title),
                         )
                       ],
                     ),
@@ -159,7 +214,9 @@ class _EditRecipePageState extends State<EditRecipePage> {
                         ),
                         IconButton(
                           icon: const Icon(Icons.add),
-                          onPressed: () => openRecipeConfigureBox(context),
+                          onPressed: () => openRecipeConfigureBox(
+                              context: context,
+                              dialogType: DialogField.directions),
                         )
                       ],
                     ),
@@ -188,7 +245,8 @@ class _EditRecipePageState extends State<EditRecipePage> {
                         ),
                         IconButton(
                           icon: const Icon(Icons.add),
-                          onPressed: () => openRecipeConfigureBox(context),
+                          onPressed: () => openRecipeConfigureBox(
+                              context: context, dialogType: DialogField.ner),
                         )
                       ],
                     ),
