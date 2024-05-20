@@ -106,7 +106,10 @@ class _RecipePageState extends State<RecipePage> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const EditRecipePage()));
+                            builder: (context) => EditRecipePage(
+                                  userRecipe: widget.userRecipe,
+                                  docID: widget.docID,
+                                )));
                   },
                   text: "Edit"),
             ],

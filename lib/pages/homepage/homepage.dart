@@ -60,6 +60,7 @@ class HomePage extends StatelessWidget {
                         data["directions"].cast<String>(),
                         data["NER"].cast<String>(),
                         data["email"],
+                        data["imageName"],
                         data["imageUrl"]);
 
                     return MyRecipeTile(

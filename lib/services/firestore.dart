@@ -1,15 +1,20 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import '../model/recipe_class.dart';
 
 class FirestoreService {
   // get collections
+  // for firestore (data)
   final CollectionReference recipes =
       FirebaseFirestore.instance.collection("recipes");
   final CollectionReference userRecipes =
       FirebaseFirestore.instance.collection("userRecipes");
+
+  // for fire cloud storage (image)
+  final storageRef = FirebaseStorage.instance.ref();
 
   // Query
   Future<void> getUserRecipes(String userEmail) {
@@ -33,6 +38,7 @@ class FirestoreService {
       "directions": userRecipe.directions,
       "NER": userRecipe.ner,
       "email": userRecipe.userEmail,
+      "imageName": userRecipe.imageName,
       "imageUrl": userRecipe.imageUrl,
     });
   }
