@@ -20,10 +20,9 @@ class DisplayPictureScreen extends StatelessWidget {
       // constructor with the given path to display the image.
       body: Image.file(File(imagePath)),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print("pressed submit");
-          print("file ${imagePath}");
-          submitPrompt(imagePath);
+        onPressed: () async {
+          
+          await submitPrompt(imagePath);
         },
         child: Icon(
            IconData(0xf05d, fontFamily: 'MaterialIcons')
@@ -33,7 +32,7 @@ class DisplayPictureScreen extends StatelessWidget {
   }
 }
 
-void submitPrompt(String imagePath) async {
+Future<String?> submitPrompt(String imagePath) async {
   final ingredientsImage = await File(imagePath).readAsBytes();
   final imagePart = DataPart('image/jpeg', ingredientsImage);
 
@@ -44,6 +43,7 @@ void submitPrompt(String imagePath) async {
     The recipe only contains real, edible ingredients.
     Return the recipe as an object of the class below.
     Only return the Recipe, do not rewrite the class definition.
+    If there is no edible object, return null.
 
     class Recipe {
       String title;
@@ -61,4 +61,6 @@ void submitPrompt(String imagePath) async {
     ]);
 
     print(response.text);
+
+    return response.text;
 }
