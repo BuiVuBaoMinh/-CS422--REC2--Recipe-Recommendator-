@@ -57,6 +57,30 @@ class _EditRecipePageState extends State<EditRecipePage> {
     UserRecipe newUserRecipe;
   }
 
+  openRecipeConfigureBox(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+              title: const Text("Add ingredients"),
+              content: const TextField(
+                decoration: InputDecoration(hintText: "eggs or milk or beef"),
+              ),
+              actions: [
+                // cancel button
+                MaterialButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text("Cancel"),
+                ),
+
+                // save button
+                MaterialButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text("Add"),
+                ),
+              ],
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -87,17 +111,26 @@ class _EditRecipePageState extends State<EditRecipePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // recipe title
-                    Text(
-                      widget.userRecipe != null
-                          ? widget.userRecipe!.title
-                          : "Recipe title",
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          widget.userRecipe != null
+                              ? widget.userRecipe!.title
+                              : "Recipe title",
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 24),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.settings),
+                          onPressed: () => openRecipeConfigureBox(context),
+                        )
+                      ],
                     ),
 
                     // recipe ingredients
                     const Text(
-                      "Ingredients: ",
+                      "Ingredients (configure amount): ",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
@@ -116,10 +149,19 @@ class _EditRecipePageState extends State<EditRecipePage> {
                     ),
 
                     // recipe directions
-                    const Text(
-                      "Directions: ",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Directions: ",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.add),
+                          onPressed: () => openRecipeConfigureBox(context),
+                        )
+                      ],
                     ),
                     ListView.builder(
                         padding: EdgeInsets.zero,
@@ -136,10 +178,19 @@ class _EditRecipePageState extends State<EditRecipePage> {
                     ),
 
                     // recipe ner
-                    const Text(
-                      "NER: ",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Ingredients without amount: ",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.add),
+                          onPressed: () => openRecipeConfigureBox(context),
+                        )
+                      ],
                     ),
                     ListView.builder(
                         padding: EdgeInsets.zero,
