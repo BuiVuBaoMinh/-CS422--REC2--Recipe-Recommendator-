@@ -8,9 +8,9 @@ class Recipe {
 
   Recipe(
     this.title,
-    this.ingredients,
+    this.ingredients, // The ingredients and amount
     this.directions,
-    this.ner,
+    this.ner, // Ingredients but without amount, brand and such
   );
 }
 

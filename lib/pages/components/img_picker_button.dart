@@ -2,6 +2,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:rec_rec_app/pages/camera_page/camera_page.dart';
 import 'scan_button.dart';
+import 'package:rec_rec_app/pages/display_picture_screen/display_picture_screen.dart';
+
 
 class PickImageButton extends ScanButton {
   PickImageButton({required super.assetPath});
